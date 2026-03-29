@@ -1,0 +1,26 @@
+aws ecr create-repository \
+  --repository-name aegis-api \
+  --region ap-south-1
+{
+    "repository": {
+        "repositoryArn": "arn:aws:ecr:ap-south-1:619296197135:repository/aegis-api",
+        "registryId": "619296197135",
+        "repositoryName": "aegis-api",
+        "repositoryUri": "619296197135.dkr.ecr.ap-south-1.amazonaws.com/aegis-api",
+        "createdAt": "2026-03-22T16:28:18.600000+05:30",
+        "imageTagMutability": "MUTABLE",
+        "imageScanningConfiguration": {
+            "scanOnPush": false
+        },
+        "encryptionConfiguration": {
+            "encryptionType": "AES256"
+        }
+    }
+}
+
+
+aws ecr get-login-password --region ap-south-1 | \
+docker login --username AWS --password-stdin 619296197135.dkr.ecr.ap-south-1.amazonaws.com
+
+
+

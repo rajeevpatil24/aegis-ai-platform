@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aegis-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aegis-api
+  template:
+    metadata:
+      labels:
+        app: aegis-api
+    spec:
+      containers:
+        - name: aegis-api
+          image: .amazonaws.com/aegis-api:v8
+          ports:
+            - containerPort: 8000

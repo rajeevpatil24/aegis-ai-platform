@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: langfuse
+      POSTGRES_DB: langfuse
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    restart: always
+    ports:
+      - "6379:6379"
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.3
+    restart: always
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+
+  langfuse:
+    image: langfuse/langfuse:2
+    depends_on:
+      - postgres
+      - redis
+      - clickhouse
+    ports:
+      - "3005:3000"
+    environment:
+      DATABASE_URL: postgresql://langfuse:langfuse@postgres:5432/langfuse
+      REDIS_URL: redis://redis:6379
+
+      CLICKHOUSE_URL: http://clickhouse:8123
+      CLICKHOUSE_MIGRATION_URL: clickhouse://clickhouse:9000
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: ""
+
+      NEXTAUTH_SECRET: supersecretkey
+      NEXTAUTH_URL: http://localhost:3005
+
+      SALT: randomsalt
