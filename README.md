@@ -2,10 +2,6 @@
 
 ##  AI Security + Observability Platform for RAG Systems
 
-git remote add origin https://github.com/rajeevpatil24/aegis-ai-platform.git
-git branch -M main
-git push -u origin main
-
 ---
 
 ##  Problem Statement
